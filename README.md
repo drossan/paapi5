@@ -1,19 +1,17 @@
 # Product Advertising API 5.0 SDK for PHP
 
-[![Version](https://img.shields.io/packagist/v/amzn/paapi5-php-sdk)](https://img.shields.io/packagist/v/amzn/paapi5-php-sdk) 
-
-[![Total Downloads](https://img.shields.io/packagist/dt/amzn/paapi5-php-sdk.svg?style=flat)](https://packagist.org/packages/amzn/paapi5-php-sdk)
-
 This repository contains the open source PHP SDK that allows you to access the [Product Advertising API](https://webservices.amazon.com/paapi5/documentation/index.html) from your PHP app.
 
 ## Installation
-The Product Advertising API PHP SDK can be installed with [Composer](https://getcomposer.org/). The SDK is available via [Packagist](http://packagist.org/) under the [`amzn/paapi5-php-sdk`](https://packagist.org/packages/amzn/paapi5-php-sdk) package. If Composer is installed globally on your system, you can run the following in the base directory of your project to add the SDK as a dependency:
+
+The Product Advertising API PHP SDK can be installed with [Composer](https://getcomposer.org/). If Composer is installed globally on your system, you can run the following in the base directory of your project to add the SDK as a dependency:
 
 ```sh
-composer require amzn/paapi5-php-sdk
+composer require drossan/paapi5
 ```
 
 ## Usage
+
 > **Note:** This version of the Product Advertising API SDK for PHP requires PHP 5.5 or greater.
 
 Simple example for [SearchItems](https://webservices.amazon.com/paapi5/documentation/search-items.html) to discover Amazon products with the keyword 'Harry Potter' in Books category:
@@ -40,13 +38,13 @@ Simple example for [SearchItems](https://webservices.amazon.com/paapi5/documenta
  *
  * https://webservices.amazon.com/paapi5/documentation/index.html
  */
- 
+
 /*
  * This sample code snippet is for ProductAdvertisingAPI 5.0's SearchItems API
  *
  * For more details, refer: https://webservices.amazon.com/paapi5/documentation/search-items.html
  */
- 
+
 use Amazon\ProductAdvertisingAPI\v1\ApiException;
 use Amazon\ProductAdvertisingAPI\v1\com\amazon\paapi5\v1\api\DefaultApi;
 use Amazon\ProductAdvertisingAPI\v1\com\amazon\paapi5\v1\PartnerType;
@@ -54,10 +52,10 @@ use Amazon\ProductAdvertisingAPI\v1\com\amazon\paapi5\v1\ProductAdvertisingAPICl
 use Amazon\ProductAdvertisingAPI\v1\com\amazon\paapi5\v1\SearchItemsRequest;
 use Amazon\ProductAdvertisingAPI\v1\com\amazon\paapi5\v1\SearchItemsResource;
 use Amazon\ProductAdvertisingAPI\v1\Configuration;
- 
+
 require_once(__DIR__ . '/vendor/autoload.php'); // change path as needed
- 
- 
+
+
 $config = new Configuration();
 
 /*
@@ -67,10 +65,10 @@ $config = new Configuration();
 $config->setAccessKey('<YOUR ACCESS KEY>');
 # Please add your secret key here
 $config->setSecretKey('<YOUR SECRET KEY>');
- 
+
 # Please add your partner tag (store/tracking id) here
 $partnerTag = '<YOUR PARTNER TAG>';
- 
+
 /*
  * PAAPI host and region to which you want to send request
  * For more details refer:
@@ -78,29 +76,29 @@ $partnerTag = '<YOUR PARTNER TAG>';
  */
 $config->setHost('webservices.amazon.com');
 $config->setRegion('us-east-1');
- 
+
 $apiInstance = new DefaultApi(
     /*
      * If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
      * This is optional, `GuzzleHttp\Client` will be used as default.
      */
     new GuzzleHttp\Client(), $config);
- 
+
 # Request initialization
- 
+
 # Specify keywords
 $keyword = 'Harry Potter';
- 
+
 /*
  * Specify the category in which search request is to be made
  * For more details, refer:
  * https://webservices.amazon.com/paapi5/documentation/use-cases/organization-of-items-on-amazon/search-index.html
  */
 $searchIndex = "Books";
- 
+
 # Specify item count to be returned in search result
 $itemCount = 1;
- 
+
 /*
  * Choose resources you want from SearchItemsResource enum
  * For more details, refer:
@@ -109,7 +107,7 @@ $itemCount = 1;
 $resources = [
     SearchItemsResource::ITEM_INFOTITLE,
     SearchItemsResource::OFFERSLISTINGSPRICE];
- 
+
 # Forming the request
 $searchItemsRequest = new SearchItemsRequest();
 $searchItemsRequest->setSearchIndex($searchIndex);
@@ -118,7 +116,7 @@ $searchItemsRequest->setItemCount($itemCount);
 $searchItemsRequest->setPartnerTag($partnerTag);
 $searchItemsRequest->setPartnerType(PartnerType::ASSOCIATES);
 $searchItemsRequest->setResources($resources);
- 
+
 # Validating request
 $invalidPropertyList = $searchItemsRequest->listInvalidProperties();
 $length = count($invalidPropertyList);
@@ -190,4 +188,5 @@ try {
 Complete documentation, installation instructions, and examples are available [here](https://webservices.amazon.com/paapi5/documentation/index.html).
 
 ## License
+
 This SDK is distributed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0), see LICENSE.txt and NOTICE.txt for more information.
